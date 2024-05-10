@@ -45,17 +45,11 @@ public class MezziDao {
 
     public List<Object[]> getBigliettiPerMezzo() {
         Query query = em.createNativeQuery(
-                "SELECT m.id, COUNT(b.id) AS num_biglietti " +
-                        "FROM mezzi m " +
-                        "LEFT JOIN viaggi v ON m.id = v.mezzo_id " +
-                        "LEFT JOIN biglietti b ON v.biglietto_id = b.id " +
+                "SELECT b.mezzo_id, COUNT(b.id) AS num_biglietti " +
+                        "FROM biglietti b " +
                         "WHERE b.timbrato = true " +
-                        "GROUP BY m.id");
+                        "GROUP BY b.mezzo_id");
         return query.getResultList();
     }
-
-
-
-
 
 }

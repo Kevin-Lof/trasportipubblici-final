@@ -17,21 +17,6 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        Scanner scanner = new Scanner(System.in);
-//        System.out.println("Benvenuto, quanti biglietti desideri acquistare?");
-//        Integer biglietti = scanner.nextInt();
-//        scanner.nextLine();
-//
-//        System.out.println("Da dove parti?");
-//        System.out.println("-Napoli \n-Roma \n-Firenze \n-Frosinone \n-Milano");
-//        String inizio = scanner.nextLine();
-//        System.out.println("Hai scelto di partire da: " + inizio + ". Dove vuoi andare?");
-//        System.out.println("-Venezia \n-Bologna \n-Torino \n-Palermo \n-Bari");
-//        String arrivo = scanner.nextLine();
-//
-//        System.out.println("Stai acquistando " + biglietti + " biglietti per un viaggio da " + inizio + " fino a " + arrivo);
-
-
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("trasportopubblico");
         EntityManager em = emf.createEntityManager();
 
@@ -109,21 +94,21 @@ public class Main {
         rivenditoreDao.save(rivenditori);
 
 
-        Biglietto biglietto1 = new Biglietto(true, LocalTime.of(10,20,25),LocalTime.of(11,50,55), utente1, tratta1, distributore1, LocalDate.of(2024, 2, 5));
-        Biglietto biglietto2 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente2, tratta5, distributore2, LocalDate.of(2024, 3, 15));
+        Biglietto biglietto1 = new Biglietto(true, LocalTime.of(10,20,25),LocalTime.of(11,50,55), utente1, tratta1, distributore1, LocalDate.of(2024, 2, 5), mezzo1);
+        Biglietto biglietto2 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente2, tratta5, distributore2, LocalDate.of(2024, 3, 15), mezzo1);
         Biglietto biglietto3 = new Biglietto(false, LocalTime.of(20,50,11), LocalTime.of(22,10,12), utente3, tratta2, distributore3, LocalDate.of(2024, 12, 25));
-        Biglietto biglietto4 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore1, LocalDate.of(2024, 6, 5));
-        Biglietto biglietto5 = new Biglietto(true, LocalTime.of(20,50,11), LocalTime.of(22,10,12), utente2, tratta4, rivenditore1, LocalDate.of(2024, 6, 12));
+        Biglietto biglietto4 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore1, LocalDate.of(2024, 6, 5), mezzo2);
+        Biglietto biglietto5 = new Biglietto(true, LocalTime.of(20,50,11), LocalTime.of(22,10,12), utente2, tratta4, rivenditore1, LocalDate.of(2024, 6, 12), mezzo2);
         Biglietto biglietto6 = new Biglietto(false, LocalTime.of(10,20,25),LocalTime.of(11,50,55), utente1, tratta1, distributore1, LocalDate.of(2024, 2, 13));
-        Biglietto biglietto7 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente2, tratta5, distributore2, LocalDate.of(2024, 1, 5));
+        Biglietto biglietto7 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente2, tratta5, distributore2, LocalDate.of(2024, 1, 5), mezzo3);
         Biglietto biglietto8 = new Biglietto(false, LocalTime.of(20,50,11), LocalTime.of(22,10,12), utente3, tratta2, distributore3, LocalDate.of(2024, 12, 5));
-        Biglietto biglietto9 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore1, LocalDate.of(2024, 3, 21));
+        Biglietto biglietto9 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore1, LocalDate.of(2024, 3, 21), mezzo3);
         Biglietto biglietto10 = new Biglietto(false, LocalTime.of(20,50,11), LocalTime.of(22,10,12), utente2, tratta4, rivenditore1, LocalDate.of(2024, 8, 2));
         Biglietto biglietto11 = new Biglietto(false, LocalTime.of(20,50,11), LocalTime.of(22,10,12), utente3, tratta2, distributore3, LocalDate.of(2024, 5, 15));
-        Biglietto biglietto12 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore2, LocalDate.of(2024, 6, 5));
-        Biglietto biglietto13 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore3, LocalDate.of(2024, 6, 5));
-        Biglietto biglietto14 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore4, LocalDate.of(2024, 6, 5));
-        Biglietto biglietto15 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore4, LocalDate.of(2024, 6, 5));
+        Biglietto biglietto12 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore2, LocalDate.of(2024, 6, 5), mezzo5);
+        Biglietto biglietto13 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore3, LocalDate.of(2024, 6, 5), mezzo5);
+        Biglietto biglietto14 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore4, LocalDate.of(2024, 6, 5), mezzo4);
+        Biglietto biglietto15 = new Biglietto(true, LocalTime.of(12,23,22), LocalTime.of(13,50,55), utente4, tratta3, rivenditore4, LocalDate.of(2024, 6, 5), mezzo4);
         bigliettiDao.save(biglietto1);
         bigliettiDao.save(biglietto2);
         bigliettiDao.save(biglietto3);
@@ -171,15 +156,15 @@ public class Main {
                 query.setParameter("id", viaggioId);
                 Number diffInSeconds = (Number) query.getSingleResult();
 
-                // Converti i secondi in ore, minuti e secondi
+
                 int ore = (int) (diffInSeconds.longValue() / 3600);
                 int minuti = (int) ((diffInSeconds.longValue() % 3600) / 60);
                 int secondi = (int) (diffInSeconds.longValue() % 60);
 
-                // Formatta il tempo di viaggio
+
                 tempoViaggioFormat = String.format("%02d:%02d:%02d", ore, minuti, secondi);
             } catch (NoResultException | NonUniqueResultException e) {
-                // Gestisci eccezioni se non ci sono risultati o risultati non univoci
+
                 e.printStackTrace();
             }
 
@@ -190,47 +175,6 @@ public class Main {
             }
         }
 
-
-
-       /* System.out.println("PROVA RECUPERO VIAGGI ID");
-        for (Integer viaggioId : viaggioIds) {
-            try {
-                Query query = em.createNativeQuery(
-                        "SELECT " +
-                                "    tratta_id, " +
-                                "    TO_CHAR( " +
-                                "        INTERVAL '1 second' * " +
-                                "        AVG(EXTRACT(EPOCH FROM (ora_arrivo - ora_partenza)))::INTEGER, " +
-                                "        'HH24:MI:SS' " +
-                                "    ) AS tempo_medio " +
-                                "FROM " +
-                                "    viaggi " +
-                                "WHERE " +
-                                "    tratta_id = ? " +
-                                "GROUP BY " +
-                                "    tratta_id"
-                );
-
-                query.setParameter(1, viaggioId);
-
-                Object[] result = (Object[]) query.getSingleResult();
-
-                // Il primo elemento dell'array è l'ID della tratta, il secondo elemento è il tempo medio in secondi
-                Integer trattaId = (Integer) result[0];
-                String tempoMedio = (String) result[1];
-
-                // Stampa il risultato
-                System.out.println("Tempo medio di viaggio per la tratta con ID " + trattaId + ": " + tempoMedio);
-            } catch (NoResultException e) {
-                // Gestisci eccezione se non ci sono risultati
-                System.out.println("Nessun tempo medio di viaggio trovato per la tratta con ID " + viaggioId);
-                e.printStackTrace();
-            } catch (NonUniqueResultException e) {
-                // Gestisci eccezione se ci sono risultati non univoci
-                e.printStackTrace();
-            }
-        }
-*/
 
 
         mezzo1.addBiglietto(biglietto1);
@@ -298,6 +242,7 @@ public class Main {
                     ", Numero di Biglietti Timbrati: " + numeroBiglietti);
         }
 
+        System.out.println("----------------------------------------------");
         System.out.println("Viaggi di un dato mezzo per tratta");
         Number viaggiPerTratta = viaggioDao.getViaggiPerTratta(tratta2, mezzo5);
         System.out.println(viaggiPerTratta);

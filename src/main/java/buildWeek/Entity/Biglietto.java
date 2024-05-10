@@ -44,6 +44,28 @@ public class Biglietto extends BigliettoEAbbonamento {
     @JoinColumn(name = "rivenditore_id")
     private Rivenditore rivenditore;
 
+    public Biglietto( boolean timbrato, LocalTime inizio, LocalTime scadenza, Utente utente, Tratta tratta, Rivenditore rivenditore, LocalDate emissione,  Mezzo mezzo) {
+        this.timbrato = timbrato;
+        this.inizio = inizio;
+        this.scadenza = scadenza;
+        this.utente = utente;
+        this.tratta = tratta;
+        this.rivenditore = rivenditore;
+        this.emissione = emissione;
+        this.mezzo = mezzo;
+    }
+
+    public Biglietto(boolean timbrato, LocalTime inizio, LocalTime scadenza, Utente utente, Tratta tratta, DistributoreAutomatico distributoreAutomatico, LocalDate emissione, Mezzo mezzo) {
+        this.timbrato = timbrato;
+        this.inizio = inizio;
+        this.scadenza = scadenza;
+        this.utente = utente;
+        this.tratta = tratta;
+        this.distributoreAutomatico = distributoreAutomatico;
+        this.emissione = emissione;
+        this.mezzo = mezzo;
+    }
+
     public Biglietto( boolean timbrato, LocalTime inizio, LocalTime scadenza, Utente utente, Tratta tratta, Rivenditore rivenditore, LocalDate emissione) {
         this.timbrato = timbrato;
         this.inizio = inizio;
@@ -63,6 +85,8 @@ public class Biglietto extends BigliettoEAbbonamento {
         this.distributoreAutomatico = distributoreAutomatico;
         this.emissione = emissione;
     }
+
+
 
     public Biglietto() {
 

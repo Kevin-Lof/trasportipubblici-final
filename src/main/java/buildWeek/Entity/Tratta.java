@@ -18,10 +18,6 @@ public class Tratta {
 
     private String capolinea;
 
-    @Column(name="tempo_effettivo")
-    private double tempoEffettivo;
-
-
 
     public Tratta( String zonaPartenza, String capolinea, List<Mezzo> mezzi) {
 
@@ -57,14 +53,5 @@ public class Tratta {
     public void setCapolinea(String capolinea) {
         this.capolinea = capolinea;
     }
-
-    public double getTempoMedio() {
-        return tempoEffettivo;
-    }
-
-    public void setTempoMedio(double tempoMedio) {
-        this.tempoEffettivo = tempoMedio;
-    }
-
 
 }
