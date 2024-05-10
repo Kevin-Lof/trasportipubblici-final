@@ -1,8 +1,6 @@
 package buildWeek;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.*;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -80,12 +78,12 @@ public class Main {
 
 
 
-        Tratta tratta1 = new Tratta("Roma","Napoli",40,mezzi);
-        Tratta tratta2 = new Tratta("Trieste","Trapani",1200,mezzi);
-        Tratta tratta3 = new Tratta("Firenze", "Bari", 600, mezzi);
-        Tratta tratta4 = new Tratta("Anagni", "Trani", 540, mezzi);
-        Tratta tratta5 = new Tratta("Napoli", "Caserta", 40, mezzi);
-        Tratta tratta6 = new Tratta("Roma", "Teramo", 120, mezzi);
+        Tratta tratta1 = new Tratta("Roma","Napoli",mezzi);
+        Tratta tratta2 = new Tratta("Trieste","Trapani",mezzi);
+        Tratta tratta3 = new Tratta("Firenze", "Bari", mezzi);
+        Tratta tratta4 = new Tratta("Anagni", "Trani", mezzi);
+        Tratta tratta5 = new Tratta("Napoli", "Caserta", mezzi);
+        Tratta tratta6 = new Tratta("Roma", "Teramo", mezzi);
         List<Tratta> tratte = new ArrayList<>(List.of(tratta1, tratta2, tratta3, tratta4, tratta5, tratta6));
         trattaDao.save(tratte);
 
@@ -147,10 +145,10 @@ public class Main {
 
         Viaggio viaggio1 = new Viaggio( LocalTime.of(10,20,25), LocalTime.of(12,20,25), mezzo1, tratta1);
         Viaggio viaggio2 = new Viaggio( LocalTime.of(12,25, 25), LocalTime.of(13, 5,15), mezzo5, tratta2);
-        Viaggio viaggio3 = new Viaggio( LocalTime.of(10,20,25), LocalTime.of(12,20,25), mezzo2, tratta3);
-        Viaggio viaggio4 = new Viaggio( LocalTime.of(12,25, 25), LocalTime.of(13, 5,15), mezzo3, tratta4);
+        Viaggio viaggio3 = new Viaggio( LocalTime.of(15,20,25), LocalTime.of(17,10,25), mezzo2, tratta3);
+        Viaggio viaggio4 = new Viaggio( LocalTime.of(12,25, 25), LocalTime.of(15, 55,15), mezzo3, tratta4);
         Viaggio viaggio5 = new Viaggio( LocalTime.of(10,20,25), LocalTime.of(12,20,25), mezzo1, tratta6);
-        Viaggio viaggio6 = new Viaggio( LocalTime.of(12,25, 25), LocalTime.of(13, 5,15), mezzo5, tratta5);
+        Viaggio viaggio6 = new Viaggio( LocalTime.of(9,25, 25), LocalTime.of(13, 5,15), mezzo5, tratta5);
         Viaggio viaggio7 = new Viaggio( LocalTime.of(10,20,25), LocalTime.of(12,20,25), mezzo3, tratta1);
         Viaggio viaggio8 = new Viaggio( LocalTime.of(12,25, 25), LocalTime.of(13, 5,15), mezzo5, tratta2);
         viaggioDao.save(viaggio1);
@@ -161,6 +159,79 @@ public class Main {
         viaggioDao.save(viaggio6);
         viaggioDao.save(viaggio7);
         viaggioDao.save(viaggio8);
+
+        List<Integer> viaggioIds = viaggioDao.getAllViaggi();
+
+        System.out.println("PROVA RECUPERO VIAGGI ID");
+        for (Integer viaggioId : viaggioIds) {
+            String tempoViaggioFormat = null;
+            try {
+                Query query = em.createNativeQuery(
+                        "SELECT EXTRACT(EPOCH FROM (ora_arrivo - ora_partenza)) FROM viaggi WHERE id = :id");
+                query.setParameter("id", viaggioId);
+                Number diffInSeconds = (Number) query.getSingleResult();
+
+                // Converti i secondi in ore, minuti e secondi
+                int ore = (int) (diffInSeconds.longValue() / 3600);
+                int minuti = (int) ((diffInSeconds.longValue() % 3600) / 60);
+                int secondi = (int) (diffInSeconds.longValue() % 60);
+
+                // Formatta il tempo di viaggio
+                tempoViaggioFormat = String.format("%02d:%02d:%02d", ore, minuti, secondi);
+            } catch (NoResultException | NonUniqueResultException e) {
+                // Gestisci eccezioni se non ci sono risultati o risultati non univoci
+                e.printStackTrace();
+            }
+
+            if (tempoViaggioFormat != null) {
+                System.out.println("Tempo di viaggio per il viaggio con ID " + viaggioId + ": " + tempoViaggioFormat);
+            } else {
+                System.out.println("Nessun tempo di viaggio trovato per il viaggio con ID " + viaggioId);
+            }
+        }
+
+
+
+       /* System.out.println("PROVA RECUPERO VIAGGI ID");
+        for (Integer viaggioId : viaggioIds) {
+            try {
+                Query query = em.createNativeQuery(
+                        "SELECT " +
+                                "    tratta_id, " +
+                                "    TO_CHAR( " +
+                                "        INTERVAL '1 second' * " +
+                                "        AVG(EXTRACT(EPOCH FROM (ora_arrivo - ora_partenza)))::INTEGER, " +
+                                "        'HH24:MI:SS' " +
+                                "    ) AS tempo_medio " +
+                                "FROM " +
+                                "    viaggi " +
+                                "WHERE " +
+                                "    tratta_id = ? " +
+                                "GROUP BY " +
+                                "    tratta_id"
+                );
+
+                query.setParameter(1, viaggioId);
+
+                Object[] result = (Object[]) query.getSingleResult();
+
+                // Il primo elemento dell'array è l'ID della tratta, il secondo elemento è il tempo medio in secondi
+                Integer trattaId = (Integer) result[0];
+                String tempoMedio = (String) result[1];
+
+                // Stampa il risultato
+                System.out.println("Tempo medio di viaggio per la tratta con ID " + trattaId + ": " + tempoMedio);
+            } catch (NoResultException e) {
+                // Gestisci eccezione se non ci sono risultati
+                System.out.println("Nessun tempo medio di viaggio trovato per la tratta con ID " + viaggioId);
+                e.printStackTrace();
+            } catch (NonUniqueResultException e) {
+                // Gestisci eccezione se ci sono risultati non univoci
+                e.printStackTrace();
+            }
+        }
+*/
+
 
         mezzo1.addBiglietto(biglietto1);
         mezzo1.addBiglietto(biglietto2);
@@ -182,7 +253,6 @@ public class Main {
 
         distributoreAutomaticoDao.getBigliettiPerDistributoreAutomatico();
 
-//        System.out.println(distributoreAutomaticoDao.getBigliettiPerDistributoreAutomatico());
 
         List<Object[]> results = distributoreAutomaticoDao.getBigliettiPerDistributoreAutomatico();
 

@@ -25,7 +25,6 @@ public class Biglietto extends BigliettoEAbbonamento {
     @JoinColumn(name = "mezzo_id")
     private  Mezzo mezzo;
 
-
     @ManyToOne
     @JoinColumn(name = "utente_id")
     private Utente utente;

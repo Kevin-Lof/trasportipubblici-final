@@ -100,4 +100,6 @@ public class Viaggio {
     public void setTratta(Tratta tratta) {
         this.tratta = tratta;
     }
+
+
 }

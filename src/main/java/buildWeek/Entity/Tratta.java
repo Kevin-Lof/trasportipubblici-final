@@ -18,20 +18,28 @@ public class Tratta {
 
     private String capolinea;
 
-    @Column(name="tempo_medio_in_minuti")
-    private double tempoMedio;
+    @Column(name="tempo_effettivo")
+    private double tempoEffettivo;
 
 
 
-    public Tratta( String zonaPartenza, String capolinea, double tempoMedio, List<Mezzo> mezzi) {
+    public Tratta( String zonaPartenza, String capolinea, List<Mezzo> mezzi) {
 
         this.zonaPartenza = zonaPartenza;
         this.capolinea = capolinea;
-        this.tempoMedio = tempoMedio;
+
 
     }
     public Tratta (){
 
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getZonaPartenza() {
@@ -51,11 +59,11 @@ public class Tratta {
     }
 
     public double getTempoMedio() {
-        return tempoMedio;
+        return tempoEffettivo;
     }
 
     public void setTempoMedio(double tempoMedio) {
-        this.tempoMedio = tempoMedio;
+        this.tempoEffettivo = tempoMedio;
     }
 
 

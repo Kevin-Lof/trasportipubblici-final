@@ -17,9 +17,6 @@ public class Manutenzione  {
     @Column(name = "data_fine")
     private LocalDate dataFine;
 
-    /*@ManyToOne
-    @JoinColumn(name = "id_mezzi")
-    private List<Mezzo> mezzi; */
 
     @OneToOne
     @JoinColumn(name = "id_mezzo")

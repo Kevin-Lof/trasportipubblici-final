@@ -6,6 +6,7 @@ import buildWeek.Entity.Viaggio;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import java.util.List;
 
 public class ViaggioDao {
 
@@ -22,15 +23,19 @@ public class ViaggioDao {
         et.commit();
     }
 
-    public Viaggio getAbbonamentoById (int id) {
+    public Viaggio getViaggioById (int id) {
         return em.find(Viaggio.class, id);
+    }
+
+    public List<Integer> getAllViaggi() {
+        return em.createQuery("SELECT v.id FROM Viaggio v", Integer.class).getResultList();
     }
 
     public void delete (int id) {
         EntityTransaction et = em.getTransaction();
         et.begin();
 
-        Viaggio viaggio = getAbbonamentoById(id);
+        Viaggio viaggio = getViaggioById(id);
 
         if (viaggio != null) {
             em.remove(viaggio);
